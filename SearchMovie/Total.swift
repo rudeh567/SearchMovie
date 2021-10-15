@@ -7,13 +7,9 @@
 
 import Foundation
 
-struct ItemResult: Codable {
-    let item: Item
-}
-
 struct ItemResponse: Codable {
-    let items: ItemResult
-    let total: String
-    let start: String
-    let display: String
+    let items: [Item]
+    let total: Int
+    let start: Int
+    let display: Int
 }
