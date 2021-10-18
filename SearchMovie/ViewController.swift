@@ -10,6 +10,7 @@ import Alamofire
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var movieSearch: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +19,7 @@ class ViewController: UIViewController {
 
     @IBAction func getMovie(_ sender: Any) {
         
-        let params = ["query" : "스파이더맨", "display" : "6"]
+        let params = ["query" : "\(movieSearch.text!)", "display" : "6"]
         
         AF.request(URL(string: "https://openapi.naver.com/v1/search/movie.json")!, method: .get, parameters: params, encoding: URLEncoding.default, headers: ["X-Naver-Client-id": "8tVP2Ab_AWUtW3dfaXd0", "X-Naver-Client-Secret": "hQTR9tllnO"]).responseJSON { response in
             

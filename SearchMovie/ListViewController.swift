@@ -35,14 +35,16 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.subtitles.text = item[indexPath.item].subtitle
         cell.date.text = item[indexPath.item].pubDate
         cell.star.text = item[indexPath.item].userRating
-        cell.directors.text = item[indexPath.item].director.htmlEscaped
-        cell.actors.text = item[indexPath.item].actor.htmlEscaped
+        cell.directors.text = "감독: \(item[indexPath.item].director.htmlEscaped.replacingOccurrences(of: "|", with: "."))"
+        cell.actors.text = "출연진: \(item[indexPath.item].actor.htmlEscaped.htmlEscaped.replacingOccurrences(of: "|", with: "."))"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detail") as! DetailViewController
+        
+        detailVc.item = item[indexPath.row]
         
         detailVc.modalPresentationStyle = .overFullScreen
         self.present(detailVc, animated: true, completion: nil)
