@@ -32,7 +32,7 @@ class ViewController: UIViewController {
                     let result = try JSONDecoder().decode(ItemResponse.self, from: data)
                     let listVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "list") as! ListViewController
                     
-                    listVc.item = result.items
+                    listVc.viewModel.item = result.items
                     
                     listVc.modalPresentationStyle = .overFullScreen
                     self.present(listVc, animated: true, completion: nil)

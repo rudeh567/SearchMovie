@@ -7,44 +7,56 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
+import RxCocoa
 
-class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ListViewController: UIViewController, UITableViewDelegate {
     
-    var item: [Item]!
+    let cellId = "cell"
+    let viewModel = ItemListViewModel()
+    var disposeBag = DisposeBag()
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-    }
-    
+//        viewModel.itemObservable
+//            .bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: ListTableViewCell.self)) { index, item, cell in
+//
+//                cell.thumbnail.kf.setImage(with: URL(string: viewModel.item[item].image))
+//                cell.endgame.text = viewModel.item[cell.item].title.htmlEscaped
+//                cell.subtitles.text = viewModel.item[cell.item].subtitle
+//                cell.date.text = viewModel.item[cell.item].pubDate
+//                cell.star.text = viewModel.item[cell.item].userRating
+//                cell.directors.text = "감독: \(viewModel.item[cell.item].director.htmlEscaped.replacingOccurrences(of: "|", with: "."))"
+//                cell.actors.text = "출연진: \(viewModel.item[cell.item].actor.htmlEscaped.htmlEscaped.replacingOccurrences(of: "|", with: "."))"
+//            }
+//            .disposed(by: disposeBag)
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return item.count
+        return viewModel.item.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ListTableViewCell
-        cell.thumbnail.kf.setImage(with: URL(string: item[indexPath.item].image))
-        cell.endgame.text = item[indexPath.item].title.htmlEscaped
-        cell.subtitles.text = item[indexPath.item].subtitle
-        cell.date.text = item[indexPath.item].pubDate
-        cell.star.text = item[indexPath.item].userRating
-        cell.directors.text = "감독: \(item[indexPath.item].director.htmlEscaped.replacingOccurrences(of: "|", with: "."))"
-        cell.actors.text = "출연진: \(item[indexPath.item].actor.htmlEscaped.htmlEscaped.replacingOccurrences(of: "|", with: "."))"
-        
+        cell.thumbnail.kf.setImage(with: URL(string: viewModel.item[indexPath.item].image))
+        cell.endgame.text = viewModel.item[indexPath.item].title.htmlEscaped
+        cell.subtitles.text = viewModel.item[indexPath.item].subtitle
+        cell.date.text = viewModel.item[indexPath.item].pubDate
+        cell.star.text = viewModel.item[indexPath.item].userRating
+        cell.directors.text = "감독: \(viewModel.item[indexPath.item].director.htmlEscaped.replacingOccurrences(of: "|", with: "."))"
+        cell.actors.text = "출연진: \(viewModel.item[indexPath.item].actor.htmlEscaped.htmlEscaped.replacingOccurrences(of: "|", with: "."))"
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detail") as! DetailViewController
         
-        detailVc.item = item[indexPath.row]
+        detailVc.item = viewModel.item[indexPath.row]
         
         detailVc.modalPresentationStyle = .overFullScreen
         self.present(detailVc, animated: true, completion: nil)
@@ -57,7 +69,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func dimissList(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension String {

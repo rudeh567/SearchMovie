@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -153,7 +154,6 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="ScS-kA-i2a" id="OBX-Ne-d18"/>
                                     <outlet property="delegate" destination="ScS-kA-i2a" id="V85-Yk-2e3"/>
                                 </connections>
                             </tableView>
@@ -178,6 +178,9 @@
                             <constraint firstItem="xpK-Rw-Mkg" firstAttribute="leading" secondItem="XEK-4R-9Tp" secondAttribute="leading" constant="12" id="aAT-ss-20b"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="xar-2y-8ge" id="UF3-1z-Bix"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xmj-Nx-qrB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

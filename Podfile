@@ -8,6 +8,8 @@ target 'SearchMovie' do
   pod 'Alamofire', '~> 5.4'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Kingfisher', '~> 7.0'	
+  pod 'RxSwift', '6.2.0'
+  pod 'RxCocoa', '6.2.0'
 
   # Pods for SearchMovie
 
